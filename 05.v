@@ -26,33 +26,8 @@ fn get_piles(input []string) ([][]string, int) {
 	return piles, breaked
 }
 
-fn first(input []string) string {
-	mut piles, breaked := get_piles(input)
-	for i in breaked + 1 .. input.len {
-		mut amount := input[i][5..7].int()
-
-		mut from := []string{}
-		if amount > 9 {
-			from = piles[input[i][13..15].int() - 1]
-		} else {
-			from = piles[input[i][12..14].int() - 1]
-		}
-		mut to := piles[input[i][input[i].len - 1].ascii_str().int() - 1]
-		for _ in 0 .. amount {
-			if from.len >= 1 {
-				to << from.pop()
-			}
-		}
-		if amount > 9 {
-			piles[input[i][13..15].int() - 1].clear()
-			piles[input[i][13..15].int() - 1].insert(0, from)
-		} else {
-			piles[input[i][12..14].int() - 1].clear()
-			piles[input[i][12..14].int() - 1].insert(0, from)
-		}
-		piles[input[i][input[i].len - 1].ascii_str().int() - 1].clear()
-		piles[input[i][input[i].len - 1].ascii_str().int() - 1].insert(0, to)
-	}
+// returns a string with the characters that where on top of the array (crates)
+fn create_str(piles [][]string) string {
 	mut s := ''
 	for i in piles {
 		if i != [] {
@@ -62,23 +37,26 @@ fn first(input []string) string {
 	return s
 }
 
-fn second(input []string) string {
+fn first(input []string) string {
 	mut piles, breaked := get_piles(input)
 	for i in breaked + 1 .. input.len {
 		mut amount := input[i][5..7].int()
 		mut from := []string{}
+		mut to := piles[input[i][input[i].len - 1].ascii_str().int() - 1]
+		// I need to check if the amount two digit wide to get the int from the correct position
 		if amount > 9 {
 			from = piles[input[i][13..15].int() - 1]
 		} else {
 			from = piles[input[i][12..14].int() - 1]
 		}
-		mut to := piles[input[i][input[i].len - 1].ascii_str().int() - 1]
-		for j in from.len - amount .. from.len {
+
+		for _ in 0 .. amount {
 			if from.len >= 1 {
-				to.insert(to.len, from[j])
+				to << from.pop()
 			}
 		}
-		from.delete_many(from.len - amount, amount)
+		// dependend of the amounts width it has to be on an other position (same as above)
+		// deletes all old input form the array and inputs the new created one
 		if amount > 9 {
 			piles[input[i][13..15].int() - 1].clear()
 			piles[input[i][13..15].int() - 1].insert(0, from)
@@ -89,13 +67,41 @@ fn second(input []string) string {
 		piles[input[i][input[i].len - 1].ascii_str().int() - 1].clear()
 		piles[input[i][input[i].len - 1].ascii_str().int() - 1].insert(0, to)
 	}
-	mut s := ''
-	for i in piles {
-		if i != [] {
-			s += i.last()
+	return create_str(piles)
+}
+
+fn second(input []string) string {
+	mut piles, breaked := get_piles(input)
+	for i in breaked + 1 .. input.len {
+		mut amount := input[i][5..7].int()
+		mut from := []string{}
+		mut to := piles[input[i][input[i].len - 1].ascii_str().int() - 1]
+		// I need to check if the amount two digit wide to get the int from the correct position
+		if amount > 9 {
+			from = piles[input[i][13..15].int() - 1]
+		} else {
+			from = piles[input[i][12..14].int() - 1]
 		}
+		// isnerts all items one by one to the end of the to array
+		for j in from.len - amount .. from.len {
+			if from.len >= 1 {
+				to.insert(to.len, from[j])
+			}
+		}
+		from.delete_many(from.len - amount, amount)
+		// dependend of the amounts width it has to be on an other position (same as above)
+		// deletes all old input form the array and inputs the new created one
+		if amount > 9 {
+			piles[input[i][13..15].int() - 1].clear()
+			piles[input[i][13..15].int() - 1].insert(0, from)
+		} else {
+			piles[input[i][12..14].int() - 1].clear()
+			piles[input[i][12..14].int() - 1].insert(0, from)
+		}
+		piles[input[i][input[i].len - 1].ascii_str().int() - 1].clear()
+		piles[input[i][input[i].len - 1].ascii_str().int() - 1].insert(0, to)
 	}
-	return s
+	return create_str(piles)
 }
 
 fn main() {
