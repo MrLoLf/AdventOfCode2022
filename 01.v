@@ -26,5 +26,6 @@ for i in content {
 	}
 	sum += i.int()
 }
+// prints the highest value and the highest value of all 3 added together
 println(highest_val[2])
 println(highest_val[0] + highest_val[1] + highest_val[2])
