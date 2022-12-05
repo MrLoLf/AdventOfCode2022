@@ -1,4 +1,5 @@
 import os
+// splits the string in half and returns both half's
 
 fn split_str(to_split string) (string, string) {
 	mut breaked := 0
@@ -13,6 +14,7 @@ fn split_str(to_split string) (string, string) {
 	return first, second
 }
 
+// get's the first and the second number of the string half
 fn get_numbers(str string) (int, int) {
 	mut breaked := 0
 	for i in 0 .. str.len {
@@ -32,6 +34,7 @@ fn first(input []string) int {
 		mut first, second := split_str(input[i])
 		mut first_num, second_num := get_numbers(first)
 		mut third_num, fourth_num := get_numbers(second)
+		// checks if one pair is fully in the other
 		if first_num <= third_num && second_num >= fourth_num {
 			pairs++
 		} else if first_num >= third_num && second_num <= fourth_num {
@@ -47,6 +50,7 @@ fn second(input []string) int {
 		mut first, second := split_str(input[i])
 		mut first_num, second_num := get_numbers(first)
 		mut third_num, fourth_num := get_numbers(second)
+		// checks if one pair is part of the other pair
 		if first_num >= third_num && fourth_num >= first_num {
 			pairs++
 		} else if third_num >= first_num && second_num >= third_num {

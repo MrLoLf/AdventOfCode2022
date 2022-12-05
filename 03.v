@@ -1,4 +1,5 @@
 import os
+// splits the array in half
 
 fn split_arr(to_split string) ([]string, []string) {
 	len_half := to_split.len / 2
@@ -14,6 +15,7 @@ fn split_arr(to_split string) ([]string, []string) {
 }
 
 fn first(content []string) int {
+	// map containing the correct int value to the corresponding string
 	numbers := {
 		'a': 1
 		'b': 2
@@ -70,6 +72,7 @@ fn first(content []string) int {
 	}
 	mut found := false
 	mut sum := 0
+	// finds the char that is in booth halfs of the line and sums the value up found form the map
 	for i in 0 .. content.len {
 		mut first, second := split_arr(content[i])
 		for j in 0 .. first.len {
@@ -146,6 +149,7 @@ fn second(content []string) int {
 	}
 	mut found := false
 	mut sum := 0
+	// finds the char that is all three lines and sums the value up found form the map
 	for k := 0; k < content.len; k += 3 {
 		for i in 0 .. content[k].len {
 			for j in 0 .. content[k + 1].len {
