@@ -15,6 +15,26 @@ fn first(input []string)int{
 }
 
 fn second(input []string)int{
+	for str in input{
+		mut arr := []string{}
+		for i := 0; i < str.len; i++{
+			mut bol := false
+			if arr.len == 14{
+				return i
+			}
+			for j in arr{
+				if j == str[i].ascii_str(){
+					bol = true
+					i -= arr.len
+					arr.clear()
+					break
+				}
+			}
+			if !bol{
+				arr << str[i].ascii_str()
+			}
+		}
+	}
 	return 0
 }
 
