@@ -19,18 +19,19 @@ fn first(input []string) int{
 			}else{
 				arr << line[2]
 			}
-			if !(line[2] in dirs){
+			if line[2] !in dirs{
 				dirs[arr.str()] = 0
 			}
 		}
 		if line[0] != "dir"{
 			sum += line[0].int()
 		}else{
-			contains[arr.str()] << line[1]
+			arr << line[1]
+			contains[arr.str()] << arr.str()
 		}
 	}
 	dirs[arr.str()] = sum
-	println(dirs)
+	//println(dirs)
 	for key, _ in dirs{
 		if key in contains{
 			for k in contains[key]{
@@ -38,6 +39,7 @@ fn first(input []string) int{
 			}
 		}
 	}
+	
 	sum = 0
 	for _, val in dirs{
 		if val < 100000{
@@ -46,10 +48,6 @@ fn first(input []string) int{
 	}
 	println("\n\n${dirs}")
 	//println(contains)
-	
-	// dirs = check_dirs(dirs, contains)
-	// println(dirs)
-	// println(contains)
 	return sum
 }
 
