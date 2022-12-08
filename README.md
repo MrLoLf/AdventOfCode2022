@@ -8,7 +8,7 @@ I will also try to add basic comments explaining my approach.
 
 ## Stars obtained
 
-### 14 / 50 :star:
+### 16 / 50 :star:
 
 ## Acknowledgements
 
